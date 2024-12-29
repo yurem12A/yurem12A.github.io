@@ -1,0 +1,182 @@
+<html>
+<head>
+    <base href="." target="_blank">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0a192f;
+            font-family: 'Courier New', monospace;
+            color: #64ffda;
+        }
+
+        .math-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        .equation {
+            position: absolute;
+            font-size: 24px;
+            animation: float 10s infinite linear;
+        }
+
+        .content {
+            background: rgba(10, 25, 47, 0.85);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
+            max-width: 600px;
+            text-align: center;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+
+        .derivative-symbol {
+            font-size: 2em;
+            color: #64ffda;
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+        }
+
+        .graph-container {
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .point {
+            fill: #ff6b6b;
+            r: 5;
+        }
+
+        .max-min-label {
+            font-size: 12px;
+            fill: #64ffda;
+        }
+
+        .return-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: transparent;
+            border: 2px solid #64ffda;
+            color: #64ffda;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .return-button:hover {
+            background: rgba(100, 255, 218, 0.1);
+            box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const background = document.querySelector('.math-background');
+            const equations = [
+                '∫', '∂', 'dx', 'dy', '∑', 'f′(x)',
+                'd/dx', '∂/∂x', 'lim', '→', '∞',
+                'f″(x)', '∮', '∏', 'ε', 'δ'
+            ];
+
+            for (let i = 0; i < 50; i++) {
+                const eq = document.createElement('div');
+                eq.className = 'equation';
+                eq.textContent = equations[Math.floor(Math.random() * equations.length)];
+                eq.style.left = `${Math.random() * 100}%`;
+                eq.style.top = `${Math.random() * 100}%`;
+                eq.style.animationDelay = `${Math.random() * 10}s`;
+                background.appendChild(eq);
+            }
+
+            // Function to generate sample data
+            const generateData = () => {
+                const data = [];
+                for (let x = 0; x <= 10; x += 0.5) {
+                    const y = Math.sin(x) * Math.exp(-x/5) * 50 + 100;
+                    data.push({ x: x * 20, y });
+                }
+                return data;
+            };
+
+            const data = generateData();
+
+            // Find local maxima and minima
+            const findExtrema = (data) => {
+                const extrema = [];
+                for (let i = 1; i < data.length - 1; i++) {
+                    if (data[i].y > data[i-1].y && data[i].y > data[i+1].y) {
+                        extrema.push({ x: data[i].x, y: data[i].y, type: 'max' });
+                    }
+                    if (data[i].y < data[i-1].y && data[i].y < data[i+1].y) {
+                        extrema.push({ x: data[i].x, y: data[i].y, type: 'min' });
+                    }
+                }
+                return extrema;
+            };
+
+            const extrema = findExtrema(data);
+
+            // Update the path of the animated curve
+            const path = document.querySelector('.function-path');
+            const pathData = `M ${data.map(p => `${p.x} ${p.y}`).join(' L ')}`;
+            path.setAttribute('d', pathData);
+
+            // Add extrema points
+            const svg = document.querySelector('.graph-svg');
+            extrema.forEach(point => {
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute('cx', point.x);
+                circle.setAttribute('cy', point.y);
+                circle.setAttribute('class', 'point');
+
+                const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                label.setAttribute('x', point.x + 10);
+                label.setAttribute('y', point.y - 10);
+                label.setAttribute('class', 'max-min-label');
+                label.textContent = point.type === 'max' ? 'Máx' : 'Mín';
+
+                svg.appendChild(circle);
+                svg.appendChild(label);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="math-background"></div>
+    <div class="content">
+        <h1><span class="derivative-symbol">∂</span> Cálculo Diferencial</h1>
+        <p>Bienvenido al fascinante mundo del cálculo diferencial, donde estudiamos las tasas a las que cambian las cantidades, analizamos datos de un período de tiempo determinado para crear el siguiente gráfico y poder calcular los máximos y mínimos.</p>
+        <div class="graph-container">
+            <svg class="graph-svg" width="200" height="200" viewBox="0 0 200 200">
+                <path class="function-path" stroke="#64ffda" fill="none" stroke-width="2"></path>
+                <path d="M 20 100 L 180 100" stroke="#64ffda" stroke-width="1" stroke-dasharray="5,5"/>
+                <text x="185" y="105" fill="#64ffda" font-size="12">x</text>
+                <text x="10" y="20" fill="#64ffda" font-size="12">y</text>
+            </svg>
+        </div>
+        <p>La gráfica anterior representa un análisis de datos recopilados con información proporcionada por el INEGI donde, además de realizar el análisis de datos, tuvimos la tarea de encontrar los valores máximos y mínimos.</p>
+        <button class="return-button" onclick="window.location.href='proyecto-transversal.html.html'">Regresar</button>
+    </div>
+</body>
+</html>

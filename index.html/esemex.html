@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estructura Socioeconómica de México</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+
+        h1, h3 {
+            text-align: center;
+            color: #2c3e50;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.8s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            color: #3498db;
+            margin: 0 0 10px 0;
+        }
+
+        .content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 1.2s ease-out, padding 1.2s ease-out;
+            padding: 0 10px;
+            margin-top: 0;
+            background: #f8f9fa;
+            border-radius: 5px;
+            line-height: 1.6;
+        }
+
+        .content.show {
+            max-height: 500px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .content ul li {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .content.show ul li {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content.show ul li:nth-child(1) { transition-delay: 0.2s; }
+        .content.show ul li:nth-child(2) { transition-delay: 0.4s; }
+        .content.show ul li:nth-child(3) { transition-delay: 0.6s; }
+        .content.show ul li:nth-child(4) { transition-delay: 0.8s; }
+
+        .active {
+            border: 2px solid #3498db;
+            transform: scale(1.02);
+        }
+
+        .content p {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease 1s, transform 0.5s ease 1s;
+        }
+
+        .content.show p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feedback-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .feedback-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feedback-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .feedback-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .feedback-button.regular { background: #e74c3c; }
+        .feedback-button.bien { background: #2ecc71; }
+        .feedback-button.excelente { background: #f1c40f; }
+    </style>
+</head>
+<body>
+    <h1>Estructura Socioeconómica de México</h1>
+
+    <div class="container">
+        <div class="card" onclick="toggleContent(1)">
+            <h2>Sector Primario</h2>
+            <div id="content1" class="content">
+                <ul>
+                    <li>Agricultura</li>
+                    <li>Ganadería</li>
+                    <li>Pesca</li>
+                    <li>Silvicultura</li>
+                </ul>
+                <p>Este sector representa aproximadamente el 3.5% del PIB nacional y emplea a cerca del 13% de la población económicamente activa.</p>
+            </div>
+        </div>
+
+        <div class="card" onclick="toggleContent(2)">
+            <h2>Sector Secundario</h2>
+            <div id="content2" class="content">
+                <ul>
+                    <li>Industria manufacturera</li>
+                    <li>Minería</li>
+                    <li>Construcción</li>
+                    <li>Energía eléctrica</li>
+                </ul>
+                <p>Representa aproximadamente el 30% del PIB y emplea al 25% de la población trabajadora.</p>
+            </div>
+        </div>
+
+        <div class="card" onclick="toggleContent(3)">
+            <h2>Sector Terciario</h2>
+            <div id="content3" class="content">
+                <ul>
+                    <li>Comercio</li>
+                    <li>Turismo</li>
+                    <li>Servicios financieros</li>
+                    <li>Transportes y comunicaciones</li>
+                </ul>
+                <p>Es el sector más grande de la economía mexicana, representando cerca del 65% del PIB.</p>
+            </div>
+        </div>
+
+        <div class="card" onclick="toggleContent(4)">
+            <h2>Distribución del Ingreso</h2>
+            <div id="content4" class="content">
+                <ul>
+                    <li>Alta desigualdad económica</li>
+                    <li>Concentración de la riqueza</li>
+                    <li>Diferencias regionales marcadas</li>
+                    <li>Brecha significativa entre zonas urbanas y rurales</li>
+                </ul>
+                <p>México mantiene uno de los índices de desigualdad más altos entre los países de la OCDE.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="feedback-section">
+        <h3>¿Qué tal nos fue?</h3>
+        <div class="feedback-buttons">
+            <a href="file:///C:/Users/YUREM%20OSORIO/Desktop/index.html/boton-regular.html.html" class="feedback-button regular">Regular</a>
+            <a href="/boton-bien.html" class="feedback-button bien">Bien</a>
+            <a href="/boton-excelente.html" class="feedback-button excelente">Excelente</a>
+        </div>
+    </div>
+
+    <script>
+        let activeContent = null;
+
+        function toggleContent(id) {
+            const content = document.getElementById('content' + id);
+            const card = content.parentElement;
+            
+            if (activeContent && activeContent !== content) {
+                activeContent.classList.remove('show');
+                activeContent.parentElement.classList.remove('active');
+            }
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                card.classList.remove('active');
+                activeContent = null;
+            } else {
+                content.classList.add('show');
+                card.classList.add('active');
+                activeContent = content;
+            }
+        }
+    </script>
+</body>
+</html>
