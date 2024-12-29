@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hicimos lo que pudimos</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .gif-container {
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+        .gif-container img {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+        }
+        .message {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .back-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="gif-container">
+        <img src="https://media.tenor.com/yKHjahILJrcAAAAd/bob-bob-minion.gif" alt="Minion GIF">
+    </div>
+    <div class="message">
+        Hicimos lo que pudimos
+    </div>
+    <a href="#" class="back-button" onclick="window.history.back()">Regresar</a>
+</body>
+</html>
