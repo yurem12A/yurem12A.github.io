@@ -1,153 +1,183 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog del Proyecto Transversal</title>
+<html><head><base href="https://yourdomain.com/">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+        font-family: 'Arial', sans-serif;
+    }
+    
+    .button-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin: 20px;
+    }
+    
+    .button {
+        padding: 20px 30px;
+        font-size: 18px;
+        color: white;
+        background: linear-gradient(45deg, #3498db, #2980b9);
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    
+    .button:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        background: linear-gradient(45deg, #2980b9, #3498db);
+    }
+    
+    .button:active {
+        transform: translateY(2px);
+    }
+    
+    .title {
+        color: white;
+        font-size: 2.5em;
+        margin-bottom: 30px;
+        text-align: center;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .members-list {
+        display: none;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        max-width: 80%;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        animation: slideDown 0.5s ease-out;
+    }
+    
+    .members-list.show {
+        display: block;
+    }
+    
+    .members-list h2 {
+        color: #2980b9;
+        margin-bottom: 15px;
+    }
+    
+    .members-list ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .members-list li {
+        color: #333;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
         }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
-            font-family: 'Arial', sans-serif;
-            padding: 20px;
-            position: relative;
-            padding-bottom: 80px; /* Espacio para el footer */
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
-
-        .title {
-            color: white;
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
-            margin-bottom: 30px;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            padding: 0 15px;
-            width: 100%;
-            word-wrap: break-word;
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
         }
-
-        .button-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 1200px;
-            padding: 0 15px;
-            margin: 20px auto;
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
-
-        .button {
-            padding: 20px 15px;
-            font-size: clamp(16px, 2vw, 18px);
-            color: white;
-            background: linear-gradient(45deg, #3498db, #2980b9);
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 60px;
-            word-wrap: break-word;
-            line-height: 1.2;
-        }
-
-        .button:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            background: linear-gradient(45deg, #2980b9, #3498db);
-        }
-
-        .button:active {
-            transform: translateY(2px);
-        }
-
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 15px;
-            background: rgba(0,0,0,0.9);
-            color: white;
-            text-align: center;
-            font-size: clamp(12px, 2vw, 16px);
-            z-index: 1000;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 15px;
-                padding-bottom: 70px;
-            }
-
-            .button-container {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .button {
-                padding: 15px 10px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .title {
-                margin-bottom: 20px;
-            }
-
-            .footer {
-                padding: 10px;
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    }
+    
+    .footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding: 20px;
+        background: rgba(0,0,0,0.8);
+        color: white;
+        text-align: center;
+        animation: fadeIn 1s ease-out;
+    }
     </style>
-</head>
-<body>
-    <h1 class="title">Blog del Proyecto Transversal</h1>
-    <div class="button-container">
-        <a href="https://calculo-diferencial-502.netlify.app/" class="button">
-            Cálculo Diferencial
-        </a>
-        <a href="https://esemex-trasnversal-502.netlify.app/" class="button">
-            Estructura Socioeconómica de México
-        </a>
-        <a href="https://502psicoiogia.blogspot.com/?m=1" class="button">
-            Psicología
-        </a>
-        <a href="/derecho.html" class="button">
-            Derecho
-        </a>
-        <a href="/economia.html" class="button">
-            Economía
-        </a>
-    </div>
-    <div class="footer">
-        © 2024 Portal Educativo - Todos los derechos reservados
-    </div>
-</body>
-</html>
+    </head>
+    <body>
+        <h1 class="title">Blog del Proyecto Transversal</h1>
+        <div class="button-container">
+            <a href="https://calculo-diferencial-502.netlify.app/" class="button">
+                Cálculo Diferencial
+            </a>
+            <a href="https://esemex-trasnversal-502.netlify.app/" class="button">
+                Estructura Socioeconómica de México
+            </a>
+            <a href="https://502psicoiogia.blogspot.com/?m=1" class="button">
+                Psicología
+            </a>
+            <a href="https://ejemplo.com/derecho" class="button">
+                Derecho
+            </a>
+            <a href="https://ejemplo.com/economia" class="button">
+                Economía
+            </a>
+            <button class="button" id="integrantes-btn">
+                Integrantes
+            </button>
+        </div>
+    
+        <div class="members-list" id="members-list">
+            <h2>Integrantes del Proyecto</h2>
+            <ul>
+                <li>Melannie Joana Martínez González</li>
+                <li>César Adrián Juárez Díaz</li>
+                <li>Yara Mayte Pedraza Luciano</li>
+                <li>Jaime de Jesús Sánchez Rodríguez</li>
+                <li>Sadrac Leyva Hernández</li>
+                <li>Daniel Armando Bobadilla Bautista</li>
+                <li>Jeycob Nimrod Vera Rodríguez</li>
+                <li>Maximino Vázquez González</li>
+                <li>Juleysi Gabriela Hernández Carballo</li>
+                <li>Estrella Esthefany Lemus Zavala</li>
+                <li>Madelyn Ramírez Ramírez</li>
+                <li>Yurem Osorio Zeferino</li>
+                <li>Dafne Odeth Licona Mendoza</li>
+                <li>Hannya de la Cruz Hernández</li>
+            </ul>
+        </div>
+    
+       
+    
+        <script>
+        document.querySelectorAll('.button').forEach(button => {
+            button.addEventListener('mouseover', (e) => {
+                e.target.style.transform = 'translateY(-5px) scale(1.05)';
+            });
+            
+            button.addEventListener('mouseout', (e) => {
+                e.target.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    
+        const integrantesBtn = document.getElementById('integrantes-btn');
+        const membersList = document.getElementById('members-list');
+        
+        integrantesBtn.addEventListener('click', () => {
+            membersList.classList.toggle('show');
+        });
+        </script>
+    </body>
+    </html>
